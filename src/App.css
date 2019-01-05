@@ -1,0 +1,17 @@
+.bg-tsl {
+	background-color: #418FD5;
+}
+
+.btn.btn-tsl {
+	background-color: #418FD5;
+	color: #fff;
+}
+
+.btn.btn-tsl:hover {
+	background-color: #2b7dc6;
+	color: #fff;
+}
+
+.wall .card {
+	margin-bottom: 20px;
+}
