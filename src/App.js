@@ -12,6 +12,15 @@ import Register from './pages/Register'
 import './App.css';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			isLoggedIn: false,
+			user: {},
+		};
+	}
+
 	render() {
 		return (
 			<div>
