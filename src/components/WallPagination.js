@@ -15,7 +15,7 @@ class WallPagination extends React.Component {
 	
 	render() {
 		return (
-			<Pagination aria-label="Wall pagination" listClassName="justify-content-center">
+			<Pagination aria-label="Wall pagination" className="mt-4" listClassName="justify-content-center">
 				<PaginationItem disabled={this.prevDisabled}>
 					<PaginationLink previous href={this.props.prev} />
 				</PaginationItem>

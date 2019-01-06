@@ -1,13 +1,10 @@
-import React from 'react';
-import {
-	Row,
-} from 'reactstrap';
+import React, { Component } from 'react';
 
 import Message from './Message';
 import WallForm from './WallForm';
 import WallPagination from './WallPagination';
 
-class Wall extends React.Component {
+class Wall extends Component {
 	render() {
 	    return (
 			<div className="wall">

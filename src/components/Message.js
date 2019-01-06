@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Button,
 	Card,
 	CardBody,
 	CardFooter,
@@ -9,8 +10,14 @@ import {
 class Message extends React.Component {
 	render() {
 	    return (
-			<Card>
+			<Card className="mb-4">
 				<CardBody>
+					<Button
+						aria-hidden="true"
+						className="card-close"
+					>
+					×
+					</Button>
 					<CardText>{this.props.text}</CardText>
 				</CardBody>
 				<CardFooter className="blockquote-footer">

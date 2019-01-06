@@ -12,6 +12,19 @@
 	color: #fff;
 }
 
-.wall .card {
-	margin-bottom: 20px;
+.card-close {
+	background-color: transparent;
+	border: 0; 
+	color: #ccc;
+	font-size: 20px;
+	line-height: 1;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.card-close:hover {
+	background-color: transparent;
+	color: #bbb;
+	text-decoration: none;
 }

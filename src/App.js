@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
 import {
-	Container,
-	Jumbotron,
-} from 'reactstrap';
+	Route,
+	Switch,
+} from 'react-router-dom'
 
 import Navigation from './components/Navigation';
-import Wall from './components/Wall';
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 import './App.css';
-
 
 class App extends Component {
 	render() {
 		return (
 			<div>
 				<Navigation />
-				<Jumbotron>
-					<h1 className="display-3 text-center">TSL Wall</h1>
-				</Jumbotron>
-				<Container>
-					<Wall />
-				</Container>
+				<main>
+					<Switch>
+						<Route
+							component={Home}
+							exact
+							path='/'
+						/>
+						<Route
+							component={Login}
+							exact
+							path='/login'
+						/>
+						<Route
+							component={Register}
+							exact
+							path='/register'
+						/>
+					</Switch>
+				</main>
 			</div>
 		);
 	}
