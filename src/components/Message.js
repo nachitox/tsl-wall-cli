@@ -12,12 +12,15 @@ class Message extends React.Component {
 	    return (
 			<Card className="mb-4">
 				<CardBody>
+					{this.props.isAuthor &&
 					<Button
 						aria-hidden="true"
 						className="card-close"
+						onClick={(e) => this.props.onDelete(this.props.id, e)}
 					>
 					×
 					</Button>
+					}
 					<CardText>{this.props.text}</CardText>
 				</CardBody>
 				<CardFooter className="blockquote-footer">

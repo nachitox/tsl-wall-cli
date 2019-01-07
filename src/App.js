@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
 	Route,
 	Switch,
+	withRouter,
 } from 'react-router-dom'
 
 import Navigation from './components/Navigation';
@@ -16,31 +17,70 @@ class App extends Component {
 		super(props);
 		
 		this.state = {
-			isLoggedIn: false,
-			user: {},
+			access_token: null,
+			user: null,
 		};
+	}
+	
+	componentDidMount() {
+		let state = localStorage["appState"];
+		if (state) {
+			let AppState = JSON.parse(state);
+			
+			this.setState({
+				access_token: AppState.access_token,
+				user: AppState.user,
+			});
+		}
+	}
+	
+	handleLogin = data => {
+		const { access_token, user } = data;
+		const state = {
+			access_token: access_token,
+			user: user,
+		};
+		this.setState(state);
+		localStorage["appState"] = JSON.stringify(state);
+		
+		this.props.history.push('/');
+	}
+	
+	handleLogout = e => {
+		if (typeof e !== 'undefined')
+			e.preventDefault();
+		
+		const state = {
+			access_token: null,
+			user: null,
+		};
+		this.setState(state);
+		localStorage["appState"] = JSON.stringify(state);
 	}
 
 	render() {
 		return (
 			<div>
-				<Navigation />
+				<Navigation
+					isLoggedIn={this.state.access_token !== null}
+					onLogout={this.handleLogout}
+				/>
 				<main>
 					<Switch>
 						<Route
-							component={Home}
 							exact
 							path='/'
+							render={(props) => <Home {...props} accessToken={this.state.access_token} user={this.state.user} />}
 						/>
 						<Route
-							component={Login}
 							exact
 							path='/login'
+							render={(props) => <Login {...props} onLoad={this.handleLogout} onLogin={this.handleLogin} />}
 						/>
 						<Route
-							component={Register}
 							exact
 							path='/register'
+							render={(props) => <Register {...props} onLoad={this.handleLogout} onRegister={this.handleLogin.bind(this)} />}
 						/>
 					</Switch>
 				</main>
@@ -49,4 +89,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default withRouter(App);

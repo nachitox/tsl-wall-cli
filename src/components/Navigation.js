@@ -47,6 +47,7 @@ class Navigation extends Component {
 						</NavbarBrand>
 						<NavbarToggler onClick={this.toggleNavbar} />
 						<Collapse isOpen={!this.state.collapsed} navbar>
+							{!this.props.isLoggedIn &&
 							<Nav className="ml-auto" navbar>
 								<NavItem>
 									<NavLink tag={RRNavLink} to="/login">Login</NavLink>
@@ -55,6 +56,14 @@ class Navigation extends Component {
 									<NavLink tag={RRNavLink} to="/register">Sign up</NavLink>
 								</NavItem>
 							</Nav>
+							}
+							{this.props.isLoggedIn &&
+							<Nav className="ml-auto" navbar>
+								<NavItem>
+									<NavLink href="/logout" onClick={this.props.onLogout}>Logout</NavLink>
+								</NavItem>
+							</Nav>
+							}
 						</Collapse>
 					</Navbar>
 				</Container>

@@ -14,7 +14,10 @@ class Home extends Component {
 					<h1 className="display-3 text-center">TSL Wall</h1>
 				</Jumbotron>
 				<Container>
-					<Wall />
+					<Wall
+						accessToken={this.props.accessToken}
+						user={this.props.user}
+					/>
 				</Container>
 			</div>
 		);

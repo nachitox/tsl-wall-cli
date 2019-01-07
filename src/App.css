@@ -23,8 +23,12 @@
 	top: 0;
 }
 
-.card-close:hover {
+.btn.btn-secondary.card-close:active,
+.btn.btn-secondary.card-close:focus,
+.btn.btn-secondary.card-close:hover {
 	background-color: transparent;
-	color: #bbb;
+	border: 0;
+	box-shadow: none !important;
+	color: #aaa;
 	text-decoration: none;
 }
