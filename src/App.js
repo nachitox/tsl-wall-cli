@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import {
 	Route,
@@ -18,6 +19,7 @@ class App extends Component {
 		
 		this.state = {
 			access_token: null,
+			refresh_at: null,
 			user: null,
 		};
 	}
@@ -29,19 +31,26 @@ class App extends Component {
 			
 			this.setState({
 				access_token: AppState.access_token,
+				refresth_at: AppState.refresh_at,
 				user: AppState.user,
 			});
+			
+			this.handleRefresh();
 		}
 	}
 	
 	handleLogin = data => {
-		const { access_token, user } = data;
+		const { access_token, expires_in, user } = data;
+		const expire_ms = (expires_in * 60 - 15) * 1000;
 		const state = {
 			access_token: access_token,
+			refresh_at: Date.now() + expire_ms,
 			user: user,
 		};
 		this.setState(state);
 		localStorage["appState"] = JSON.stringify(state);
+		
+		setTimeout(this.handleRefresh, expire_ms);
 		
 		this.props.history.push('/');
 	}
@@ -52,10 +61,30 @@ class App extends Component {
 		
 		const state = {
 			access_token: null,
+			refresh_at: null,
 			user: null,
 		};
 		this.setState(state);
 		localStorage["appState"] = JSON.stringify(state);
+	}
+	
+	handleRefresh = () => {
+		if (this.state.access_token === null)
+			return;
+		
+		axios.post('http://dev.tsl.com/api/refresh?token=' + this.state.access_token)
+		.then(response => {
+			return response;
+		})
+		.then(json => {
+			if (typeof json.data.error !== 'undefined')
+				this.handleLogout();
+			
+			this.handleLogin(json.data.data);
+		})
+		.catch(error => {
+			this.handleLogout();
+		});
 	}
 
 	render() {
